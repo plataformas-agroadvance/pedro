@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finanças no Campo – Curso Executivo para o Agronegócio</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --terra:       #0D1A0F;
+    --ouro:        #C8F000;
+    --palha:       #EAEAE0;
+    --verde:       #152B18;
+    --verde-claro: #2A5C30;
+    --creme:       #F4F4EE;
+    --cinza:       #7A8A7C;
+  }
+
+  @page { size: A4 portrait; margin: 0; }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: #333;
+    color: var(--terra);
+  }
+
+  @media print { body { background: white; } }
+
+  /* ── PÁGINA: 210 × 297 mm ── */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    margin: 20px auto;
+    box-shadow: 0 6px 40px rgba(0,0,0,0.55);
+  }
+  .page:last-child { page-break-after: avoid; break-after: avoid; }
+  @media print { .page { margin: 0; box-shadow: none; } }
+
+  h1,h2,h3,h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  /* ── UTILITÁRIOS ── */
+  .lbl {
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4mm;
+  }
+  .lbl::after { content:''; display:block; width:16px; height:1px; background:currentColor; }
+  .lbl-light { color: var(--ouro); }
+  .lbl-dark  { color: var(--verde-claro); }
+  .lbl-gold  { color: var(--terra); }
+
+  /* ════════════════════════════════════════
+     PÁGINA 1 · CAPA
+  ════════════════════════════════════════ */
+  .p1 {
+    background: var(--verde);
+    display: grid;
+    grid-template-columns: 1fr 78mm;
+    grid-template-rows: 1fr 20mm;
+  }
+
+  .p1-left {
+    padding: 13mm 10mm 10mm 13mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+  .p1-left::before {
+    content:'';
+    position:absolute; inset:0;
+    background: radial-gradient(ellipse 90% 70% at 10% 90%, rgba(200,240,0,0.07) 0%, transparent 65%);
+    pointer-events:none;
+  }
+
+  .badge {
+    display: inline-block;
+    background: var(--ouro);
+    color: var(--terra);
+    font-size: 6.5pt;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 2.5px 9px;
+    margin-bottom: 7mm;
+    width: fit-content;
+  }
+
+  .p1 h1 {
+    font-size: 56pt;
+    color: var(--palha);
+    letter-spacing: -1.5px;
+    margin-bottom: 5mm;
+  }
+  .p1 h1 em { color: var(--ouro); font-style: normal; }
+
+  .hero-sub {
+    font-size: 9pt;
+    color: rgba(234,234,224,0.68);
+    line-height: 1.6;
+    max-width: 82mm;
+    margin-bottom: 7mm;
+  }
+
+  .cta-stack { display:flex; flex-direction:column; gap:2.5mm; max-width:68mm; }
+  .btn-p {
+    background: var(--ouro);
+    color: var(--terra);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2.5mm 0;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+  }
+  .btn-o {
+    background: transparent;
+    color: rgba(234,234,224,0.65);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 9.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2.5mm 0;
+    border: 1px solid rgba(200,240,0,0.28);
+    text-decoration: none;
+    text-align: center;
+    display: block;
+  }
+
+  /* Card direita */
+  .p1-right {
+    background: rgba(200,240,0,0.055);
+    border-left: 1px solid rgba(200,240,0,0.12);
+    padding: 13mm 8mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .card-ttl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11pt;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--ouro);
+    padding-bottom: 3.5mm;
+    border-bottom: 1px solid rgba(200,240,0,0.22);
+    margin-bottom: 4.5mm;
+  }
+
+  .t-lbl { font-size: 6.5pt; letter-spacing:2px; text-transform:uppercase; color:var(--ouro); margin-bottom:1.5mm; }
+  .t-date { font-size: 10.5pt; font-weight:600; color:var(--palha); }
+  .t-fmt  { font-size: 7.5pt; color:rgba(234,234,224,0.42); }
+  .t-price {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:20pt; font-weight:800; color:var(--ouro); margin-top:1.5mm;
+  }
+  .t-price span { font-size:7.5pt; font-family:'Barlow',sans-serif; color:rgba(234,234,224,0.38); font-weight:400; }
+
+  .hdiv { border:none; border-top:1px solid rgba(200,240,0,0.1); margin:4mm 0; }
+
+  .inc-lbl { font-size:6.5pt; letter-spacing:2px; text-transform:uppercase; color:var(--ouro); margin-bottom:2.5mm; }
+  .inc-list { list-style:none; display:flex; flex-direction:column; gap:2mm; }
+  .inc-list li {
+    font-size:8pt; color:rgba(234,234,224,0.62);
+    display:flex; align-items:flex-start; gap:2.5mm; line-height:1.4;
+  }
+  .inc-list li::before { content:'✓'; color:var(--ouro); font-weight:700; font-size:7.5pt; flex-shrink:0; }
+
+  /* Stats bar */
+  .stats-bar {
+    grid-column: 1 / -1;
+    background: var(--terra);
+    border-top: 2.5px solid var(--ouro);
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    align-items: center;
+  }
+  .stat {
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    border-right:1px solid rgba(200,240,0,0.09);
+    padding: 3mm 2mm;
+  }
+  .stat:last-child { border-right:none; }
+  .s-num {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:15pt; font-weight:800; color:var(--ouro); line-height:1;
+  }
+  .s-lbl { font-size:5.5pt; color:rgba(234,234,224,0.42); text-align:center; margin-top:1px; letter-spacing:0.4px; }
+
+  /* ════════════════════════════════════════
+     PÁGINA 2 · POR QUE FAZER + PERFIL
+  ════════════════════════════════════════ */
+  .p2 {
+    background: var(--creme);
+    display:flex; flex-direction:column;
+  }
+
+  .sec-hdr-dark {
+    background: var(--terra);
+    padding: 7mm 13mm 6mm;
+    border-bottom: 2.5px solid var(--ouro);
+    flex-shrink:0;
+  }
+  .sec-hdr-dark h2 { font-size:22pt; color:var(--palha); }
+  .sec-hdr-dark p  { font-size:8.5pt; color:rgba(234,234,224,0.52); margin-top:1.5mm; line-height:1.5; }
+
+  .why-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:1px; background:rgba(13,26,15,0.07);
+    flex-shrink:0;
+  }
+  .why-item {
+    background: var(--creme);
+    padding:7mm 9mm;
+    display:flex; gap:4.5mm; align-items:flex-start;
+  }
+  .why-item:nth-child(2),.why-item:nth-child(3) { background:#EBEBDF; }
+  .why-icon {
+    width:9mm; height:9mm; background:var(--terra);
+    display:flex; align-items:center; justify-content:center;
+    font-size:13pt; flex-shrink:0; margin-top:0.5mm;
+  }
+  .why-item h4 { font-size:11pt; color:var(--terra); margin-bottom:1.5mm; letter-spacing:0; }
+  .why-item p  { font-size:8pt; color:var(--cinza); line-height:1.55; }
+
+  .perfil-split {
+    display:grid; grid-template-columns:1fr 1fr;
+    flex:1;
+  }
+  .pc {
+    padding:6mm 10mm;
+    display:flex; flex-direction:column;
+  }
+  .pc.dark { background:var(--terra); }
+  .pc.light { background:var(--creme); }
+  .pc h3 { font-size:15pt; margin-bottom:2.5mm; }
+  .pc.dark h3 { color:var(--palha); }
+  .pc.light h3 { color:var(--terra); }
+  .pc .psub { font-size:8pt; line-height:1.5; margin-bottom:3mm; }
+  .pc.dark .psub { color:rgba(234,234,224,0.5); }
+  .pc.light .psub { color:var(--cinza); }
+
+  .rl { list-style:none; }
+  .rl li {
+    display:flex; gap:2.5mm; align-items:flex-start;
+    padding:2mm 0; border-bottom:1px solid rgba(13,26,15,0.07);
+    font-size:8pt; line-height:1.4;
+  }
+  .pc.dark .rl li { border-bottom-color:rgba(200,240,0,0.08); color:rgba(234,234,224,0.72); }
+  .rl li:last-child { border-bottom:none; }
+  .chk {
+    width:4.5mm; height:4.5mm; border-radius:50%;
+    background:var(--ouro); display:flex; align-items:center; justify-content:center;
+    color:var(--terra); font-size:5.5pt; font-weight:700; flex-shrink:0; margin-top:0.3mm;
+  }
+
+  /* ════════════════════════════════════════
+     PÁGINA 3 · PROGRAMA / MÓDULOS
+  ════════════════════════════════════════ */
+  .p3 { background:var(--terra); display:flex; flex-direction:column; }
+
+  .p3-hdr { padding:7mm 13mm 4mm; flex-shrink:0; }
+  .p3-hdr h2 { font-size:22pt; color:var(--palha); }
+  .p3-hdr p  { font-size:8pt; color:rgba(234,234,224,0.48); margin-top:1.5mm; }
+
+  .day-hdrs {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:1px; background:rgba(200,240,0,0.04);
+    margin:0 13mm 2mm;
+  }
+  .dh {
+    background:var(--terra); border:1px solid rgba(200,240,0,0.1);
+    padding:2.5mm 4mm; text-align:center;
+  }
+  .dh .dlbl { font-size:6pt; letter-spacing:1.5px; text-transform:uppercase; color:var(--ouro); margin-bottom:1mm; }
+  .dh .dname { font-family:'Barlow Condensed',sans-serif; font-size:11pt; font-weight:700; text-transform:uppercase; color:var(--palha); }
+
+  .mods-grid {
+    display:grid; grid-template-columns:repeat(5,1fr);
+    gap:1px; background:rgba(200,240,0,0.04);
+    margin:0 13mm;
+  }
+  .mod {
+    background:var(--terra);
+    padding:4mm 3.5mm;
+    border:1px solid rgba(200,240,0,0.07);
+    position:relative; overflow:hidden;
+  }
+  .mod::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:var(--ouro); opacity:0.25;
+  }
+  .mod.acc { background:rgba(200,240,0,0.03); border-color:rgba(200,240,0,0.14); }
+  .mod-day { font-size:6pt; letter-spacing:1.5px; text-transform:uppercase; color:var(--ouro); opacity:0.65; margin-bottom:1.5mm; }
+  .mod-n { font-family:'Barlow Condensed',sans-serif; font-size:26pt; font-weight:800; color:rgba(200,240,0,0.1); line-height:1; margin-bottom:1mm; }
+  .mod h3 { font-size:8.5pt; color:var(--palha); margin-bottom:2.5mm; line-height:1.2; letter-spacing:0; }
+  .mod h3.acc { color:var(--ouro); }
+  .ml { list-style:none; }
+  .ml li {
+    font-size:6.5pt; color:rgba(234,234,224,0.52);
+    padding:1.3mm 0; border-bottom:1px solid rgba(200,240,0,0.05);
+    line-height:1.35; display:flex; gap:1.5mm; align-items:flex-start;
+  }
+  .ml li:last-child { border-bottom:none; }
+  .ml li::before { content:'›'; color:var(--ouro); font-size:8pt; font-weight:700; flex-shrink:0; line-height:1.2; }
+
+  .ment-strip {
+    margin:2.5mm 13mm 0;
+    background:rgba(200,240,0,0.04);
+    border:1px solid rgba(200,240,0,0.17);
+    padding:3.5mm 5mm;
+    display:flex; align-items:center; gap:5mm;
+    flex-shrink:0;
+  }
+  .ment-emoji { font-size:18pt; }
+  .ment-info { flex:1; }
+  .ment-ttl { font-family:'Barlow Condensed',sans-serif; font-size:12pt; font-weight:800; text-transform:uppercase; color:var(--palha); letter-spacing:0.5px; }
+  .ment-sub { font-size:7.5pt; color:rgba(234,234,224,0.5); margin-top:1mm; line-height:1.4; }
+  .ment-ctrs { display:flex; gap:2.5mm; }
+  .mc {
+    background:rgba(200,240,0,0.1); border:1px solid rgba(200,240,0,0.2);
+    padding:2.5mm 4mm; text-align:center; min-width:13mm;
+  }
+  .mc-v { font-family:'Barlow Condensed',sans-serif; font-size:14pt; font-weight:800; color:var(--ouro); line-height:1; }
+  .mc-k { font-size:5.5pt; color:rgba(234,234,224,0.38); text-transform:uppercase; letter-spacing:0.4px; margin-top:1px; }
+
+  /* ════════════════════════════════════════
+     PÁGINA 4 · INDICADORES + CRÉDITO
+  ════════════════════════════════════════ */
+  .p4 { background:var(--terra); display:flex; flex-direction:column; }
+
+  .p4-hdr { padding:7mm 13mm 4mm; flex-shrink:0; }
+  .p4-hdr h2 { font-size:21pt; color:var(--palha); }
+  .p4-hdr p  { font-size:8pt; color:rgba(234,234,224,0.48); margin-top:1.5mm; }
+
+  .ind-grid {
+    display:grid; grid-template-columns:repeat(3,1fr);
+    gap:2px; margin:0 13mm; flex-shrink:0;
+  }
+  .ic {
+    background:var(--verde); padding:5mm 4.5mm;
+    border-left:3px solid var(--verde-claro);
+  }
+  .ic.hi  { border-left-color:var(--ouro); }
+  .ic.mid { border-left-color:rgba(200,240,0,0.42); }
+  .ic-sig { font-family:'Barlow Condensed',sans-serif; font-size:20pt; font-weight:800; color:var(--ouro); line-height:1; margin-bottom:0.8mm; }
+  .ic-nom { font-size:6.5pt; color:rgba(234,234,224,0.42); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:2.5mm; }
+  .ic-desc { font-size:7.5pt; color:rgba(234,234,224,0.68); line-height:1.55; }
+
+  /* Crédito nesta página */
+  .cred-hdr { padding:5mm 13mm 3mm; flex-shrink:0; }
+  .cred-hdr h2 { font-size:18pt; color:var(--palha); }
+  .cred-hdr p  { font-size:8pt; color:rgba(234,234,224,0.48); margin-top:1mm; }
+
+  .cred-grid {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:5mm; margin:0 13mm;
+    flex-shrink:0;
+  }
+  .cc h4 {
+    font-family:'Barlow Condensed',sans-serif; font-size:11pt; font-weight:700;
+    text-transform:uppercase; color:var(--ouro);
+    padding-bottom:2.5mm; border-bottom:1px solid rgba(200,240,0,0.18); margin-bottom:3mm;
+  }
+  .ci { display:flex; gap:2.5mm; margin-bottom:3mm; padding-bottom:3mm; border-bottom:1px solid rgba(200,240,0,0.06); }
+  .ci:last-child { border-bottom:none; margin-bottom:0; }
+  .cdot { width:4px; height:4px; border-radius:50%; background:var(--ouro); margin-top:3.5px; flex-shrink:0; }
+  .ci-ttl { font-size:8.5pt; font-weight:600; color:var(--palha); margin-bottom:1mm; }
+  .ci-sub { font-size:7pt; color:rgba(234,234,224,0.48); line-height:1.5; }
+
+  /* ════════════════════════════════════════
+     PÁGINA 5 · DOCENTES + PROCESSO + INVEST
+  ════════════════════════════════════════ */
+  .p5 { background:var(--terra); display:flex; flex-direction:column; }
+
+  .p5-doc-hdr { padding:7mm 13mm 3.5mm; flex-shrink:0; }
+  .p5-doc-hdr h2 { font-size:20pt; color:var(--palha); }
+
+  .doc-grid {
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:2px; background:rgba(200,240,0,0.04);
+    margin:0 13mm 0; flex-shrink:0;
+  }
+  .dc { background:var(--verde); padding:4.5mm; border:1px solid rgba(200,240,0,0.07); }
+  .dc-name {
+    font-family:'Barlow Condensed',sans-serif; font-size:12.5pt; font-weight:700;
+    text-transform:uppercase; color:var(--palha);
+    margin-bottom:1mm; display:flex; align-items:center; gap:3mm; flex-wrap:wrap;
+  }
+  .li-btn {
+    background:#0077b5; color:white; font-size:5.5pt; font-weight:600;
+    padding:1px 5px; border-radius:2px; text-decoration:none;
+    display:inline-flex; align-items:center; gap:1.5px; letter-spacing:0.3px;
+  }
+  .dc-cargo { font-size:6.5pt; color:var(--ouro); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:1.5mm; font-weight:600; }
+  .dc-bio { font-size:7pt; color:rgba(234,234,224,0.52); line-height:1.5; }
+
+  /* Processo */
+  .proc-strip {
+    background:var(--ouro); padding:4.5mm 13mm;
+    flex-shrink:0;
+  }
+  .proc-strip h3 { font-size:14pt; color:var(--terra); margin-bottom:3.5mm; letter-spacing:0; }
+  .steps { display:grid; grid-template-columns:repeat(4,1fr); position:relative; }
+  .steps::before {
+    content:''; position:absolute; top:5.5mm; left:12.5%; right:12.5%;
+    height:1px; background:rgba(13,26,15,0.18);
+  }
+  .step { text-align:center; position:relative; z-index:1; padding:0 2mm; }
+  .sn {
+    width:11mm; height:11mm; background:var(--terra);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Barlow Condensed',sans-serif; font-size:13pt; font-weight:800; color:var(--ouro);
+    margin:0 auto 2mm;
+  }
+  .step h4 { font-size:7.5pt; color:var(--terra); margin-bottom:1mm; text-transform:uppercase; letter-spacing:0; }
+  .step p  { font-size:6.5pt; color:rgba(13,26,15,0.55); line-height:1.4; }
+
+  /* Investimento */
+  .inv-strip {
+    padding:5mm 13mm; flex-shrink:0;
+  }
+  .inv-inner { display:grid; grid-template-columns:1fr 1fr; gap:6mm; align-items:center; }
+  .inv-l h3  { font-size:14pt; color:var(--palha); margin-bottom:2mm; }
+  .inv-price {
+    font-family:'Barlow Condensed',sans-serif;
+    font-size:44pt; font-weight:800; color:var(--ouro); line-height:1; letter-spacing:-1px; margin-bottom:1.5mm;
+  }
+  .inv-psub { font-size:7.5pt; color:rgba(234,234,224,0.42); line-height:1.55; }
+  .inv-checks { display:grid; grid-template-columns:1fr 1fr; gap:1.5mm; }
+  .inv-chk {
+    display:flex; align-items:flex-start; gap:2mm;
+    font-size:7pt; color:rgba(234,234,224,0.68); line-height:1.4;
+  }
+  .inv-chk::before { content:'✓'; color:var(--ouro); font-weight:700; font-size:7pt; flex-shrink:0; }
+
+  /* Footer */
+  .foot {
+    background:#050d06; border-top:2px solid var(--ouro);
+    padding:3mm 13mm;
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:auto; flex-shrink:0;
+  }
+  .foot-brand {
+    font-family:'Barlow Condensed',sans-serif; font-size:13pt; font-weight:800;
+    text-transform:uppercase; color:var(--palha); letter-spacing:1px;
+  }
+  .foot-brand span { color:var(--ouro); }
+  .foot-info { font-size:6.5pt; color:rgba(234,234,224,0.28); text-align:right; line-height:1.7; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ PÁGINA 1 · CAPA ════════════════════ -->
+<div class="page p1">
+
+  <div class="p1-left">
+    <div>
+      <div class="badge">Educação Executiva · Agronegócio</div>
+      <h1>Finanças<br>no <em>Campo</em></h1>
+      <p class="hero-sub">Um curso prático para produtores rurais, gestores e empreendedores do agro que querem dominar as finanças do negócio — da fazenda ao mercado.</p>
+      <div class="cta-stack">
+        <a href="#" class="btn-p">Inscreva-se agora</a>
+        <a href="#" class="btn-o">Ver programa completo</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="p1-right">
+    <div class="card-ttl">Próxima Turma</div>
+    <div class="t-lbl">Imersão Presencial · 3 Dias</div>
+    <div class="t-date">A confirmar</div>
+    <div class="t-fmt">Qui–Sex–Sáb · 09h–18h</div>
+    <div class="t-price">R$ 4.997 <span>à vista</span></div>
+    <hr class="hdiv">
+    <div class="inc-lbl">Incluso no valor</div>
+    <ul class="inc-list">
+      <li>24h presenciais (3 dias de imersão)</li>
+      <li>6h de mentoria ao vivo (3 encontros)</li>
+      <li>Materiais e acesso à plataforma</li>
+      <li>Certificado digital de conclusão</li>
+    </ul>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat"><span class="s-num">24h</span><span class="s-lbl">Presenciais em 3 dias</span></div>
+    <div class="stat"><span class="s-num">+6h</span><span class="s-lbl">Mentoria ao vivo</span></div>
+    <div class="stat"><span class="s-num">5</span><span class="s-lbl">Módulos temáticos</span></div>
+    <div class="stat"><span class="s-num">Prático</span><span class="s-lbl">Projeto no seu negócio</span></div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ PÁGINA 2 · POR QUE FAZER + PERFIL ════════════════════ -->
+<div class="page p2">
+
+  <div class="sec-hdr-dark">
+    <div class="lbl lbl-light">Objetivos</div>
+    <h2 style="font-size:22pt;color:var(--palha)">Por que fazer este curso?</h2>
+    <p style="font-size:8.5pt;color:rgba(234,234,224,0.52);margin-top:1.5mm;line-height:1.5">O agronegócio movimenta trilhões, mas a gestão financeira de muitas propriedades ainda é feita no "feeling". Este curso muda isso.</p>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-icon">📊</div>
+      <div>
+        <h4>Ler os números da fazenda</h4>
+        <p>Entenda DRE, fluxo de caixa e balanço aplicados ao contexto rural — sem jargão desnecessário.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">💳</div>
+      <div>
+        <h4>Levantar capital com segurança</h4>
+        <p>Saiba escolher entre Custeio, Pronamp, CRA, CPR e outras linhas sem se endividar além da conta.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">📈</div>
+      <div>
+        <h4>Medir o que realmente importa</h4>
+        <p>EBITDA, alavancagem, ROI de safra, custo por hectare: os indicadores que revelam a saúde real do negócio.</p>
+      </div>
+    </div>
+    <div class="why-item">
+      <div class="why-icon">🌱</div>
+      <div>
+        <h4>Planejar investimentos com método</h4>
+        <p>Analise expansão de área, compra de máquinas e armazenagem com critérios financeiros sólidos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="perfil-split">
+    <div class="pc dark">
+      <div class="lbl lbl-light">Para quem é</div>
+      <h3>Perfil dos participantes</h3>
+      <p class="psub">Executivos, produtores e empreendedores de qualquer área que precisam dominar finanças para gerir melhor o negócio.</p>
+      <ul class="rl">
+        <li><div class="chk">✓</div>Produtores rurais que gerenciam o próprio negócio</li>
+        <li><div class="chk">✓</div>Gestores de agroindústrias e cooperativas</li>
+        <li><div class="chk">✓</div>Profissionais técnicos em transição para a gestão</li>
+        <li><div class="chk">✓</div>Empreendedores e investidores do setor agrícola</li>
+        <li><div class="chk">✓</div>Consultores e assessores que atendem o setor</li>
+      </ul>
+    </div>
+    <div class="pc light">
+      <div class="lbl lbl-dark">Pré-requisitos</div>
+      <h3>O que você precisa trazer</h3>
+      <p class="psub" style="color:var(--cinza)">Não é necessário conhecimento prévio de finanças. Só curiosidade e vontade de crescer.</p>
+      <ul class="rl">
+        <li><div class="chk">✓</div>Formação superior em qualquer área</li>
+        <li><div class="chk">✓</div>Mínimo de 1 ano de experiência em gestão no agro</li>
+        <li><div class="chk">✓</div>Conhecimento básico de Excel (recomendado)</li>
+        <li><div class="chk">✓</div>Acesso aos dados financeiros básicos do negócio</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ PÁGINA 3 · PROGRAMA ════════════════════ -->
+<div class="page p3">
+
+  <div class="p3-hdr">
+    <div class="lbl lbl-light">Programa</div>
+    <h2 style="font-size:22pt;color:var(--palha)">3 Dias. 5 Módulos. Uma visão completa.</h2>
+    <p style="font-size:8pt;color:rgba(234,234,224,0.48);margin-top:1.5mm">A imersão foi desenhada para construir o raciocínio financeiro de forma progressiva — do básico ao estratégico.</p>
+  </div>
+
+  <div class="day-hdrs">
+    <div class="dh"><div class="dlbl">Dia 1 · Integral</div><div class="dname">Contabilidade</div></div>
+    <div class="dh"><div class="dlbl">Dia 2 · Integral</div><div class="dname">Dinheiro & Indicadores</div></div>
+    <div class="dh"><div class="dlbl">Dia 3 · Integral</div><div class="dname">Investimento & Crédito</div></div>
+  </div>
+
+  <div class="mods-grid">
+
+    <div class="mod">
+      <div class="mod-day">Dia 1 · Manhã & Tarde</div>
+      <div class="mod-n">01</div>
+      <h3>Contabilidade do Agro</h3>
+      <ul class="ml">
+        <li>Como ler o Balanço Patrimonial da fazenda</li>
+        <li>DRE: separando receita, custo e margem por cultura</li>
+        <li>Diferença entre lucro e caixa</li>
+        <li>EBITDA, Margem Bruta e Liquidez</li>
+        <li>Depreciação de máquinas</li>
+        <li>Fluxo de caixa e sazonalidade agrícola</li>
+      </ul>
+    </div>
+
+    <div class="mod">
+      <div class="mod-day">Dia 2 · Manhã</div>
+      <div class="mod-n">02</div>
+      <h3>Matemática do Dinheiro</h3>
+      <ul class="ml">
+        <li>Valor do dinheiro no tempo</li>
+        <li>Juros simples vs. compostos</li>
+        <li>Comparar propostas de financiamento</li>
+        <li>Price, SAC e Bullet</li>
+        <li>Custo efetivo total (CET)</li>
+      </ul>
+    </div>
+
+    <div class="mod acc">
+      <div class="mod-day">Dia 2 · Tarde</div>
+      <div class="mod-n" style="color:rgba(200,240,0,0.18)">03</div>
+      <h3 class="acc">Indicadores Financeiros</h3>
+      <ul class="ml">
+        <li>Alavancagem: dívida turbina retorno</li>
+        <li>WACC: custo médio de capital</li>
+        <li>ROI de safra e ROE do produtor</li>
+        <li>Dívida/EBITDA: limite saudável</li>
+        <li>Custo por hectare</li>
+        <li>Ciclo de caixa e capital de giro</li>
+      </ul>
+    </div>
+
+    <div class="mod">
+      <div class="mod-day">Dia 3 · Manhã</div>
+      <div class="mod-n">04</div>
+      <h3>Avaliação de Investimentos</h3>
+      <ul class="ml">
+        <li>VPL: o projeto vale a pena?</li>
+        <li>TIR no contexto rural</li>
+        <li>Payback: em quantas safras?</li>
+        <li>Expansão de área e compra de terra</li>
+        <li>Valuation de propriedade</li>
+        <li>Plantar ou arrendar?</li>
+      </ul>
+    </div>
+
+    <div class="mod acc">
+      <div class="mod-day">Dia 3 · Tarde</div>
+      <div class="mod-n" style="color:rgba(200,240,0,0.18)">05</div>
+      <h3 class="acc">Crédito & Captação</h3>
+      <ul class="ml">
+        <li>Panorama das linhas de crédito</li>
+        <li>Custeio, investimento e comercialização</li>
+        <li>Pronamp, FCO e Moderfrota</li>
+        <li>CPR e CRA</li>
+        <li>Barter: insumos por grãos</li>
+        <li>Dossiê de crédito</li>
+        <li>Garantias e alternativas</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="ment-strip">
+    <div class="ment-emoji">🎯</div>
+    <div class="ment-info">
+      <div class="ment-ttl">6 horas de mentoria ao vivo</div>
+      <div class="ment-sub">3 encontros online de 2h após a imersão — para revisar dados do seu negócio e aplicar na prática.</div>
+    </div>
+    <div class="ment-ctrs">
+      <div class="mc"><div class="mc-v">3</div><div class="mc-k">Encontros</div></div>
+      <div class="mc"><div class="mc-v">2h</div><div class="mc-k">Cada um</div></div>
+      <div class="mc"><div class="mc-v">AO</div><div class="mc-k">Vivo Online</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ PÁGINA 4 · INDICADORES + CRÉDITO ════════════════════ -->
+<div class="page p4">
+
+  <div class="p4-hdr">
+    <div class="lbl lbl-light">Destaque do programa</div>
+    <h2 style="font-size:21pt;color:var(--palha)">Os indicadores que todo produtor precisa dominar</h2>
+    <p style="font-size:8pt;color:rgba(234,234,224,0.48);margin-top:1.5mm">Você vai aprender a calcular e interpretar cada um com exemplos reais de propriedades rurais.</p>
+  </div>
+
+  <div class="ind-grid">
+    <div class="ic">
+      <div class="ic-sig">EBITDA</div>
+      <div class="ic-nom">Geração de Caixa Operacional</div>
+      <div class="ic-desc">Mede quanto a fazenda gera de caixa com sua operação, antes de juros, impostos e depreciação. Revela se o negócio é viável por si só.</div>
+    </div>
+    <div class="ic hi">
+      <div class="ic-sig">Alavancagem</div>
+      <div class="ic-nom">Dívida / EBITDA</div>
+      <div class="ic-desc">Indica quantos anos de caixa seriam necessários para pagar toda a dívida. No agro, valores acima de 3x acendem o sinal amarelo.</div>
+    </div>
+    <div class="ic mid">
+      <div class="ic-sig">ROI</div>
+      <div class="ic-nom">Retorno sobre o Investimento</div>
+      <div class="ic-desc">Compara o resultado líquido com o capital investido. Permite decidir entre plantar soja, milho, arrendar a terra ou outras alternativas.</div>
+    </div>
+    <div class="ic">
+      <div class="ic-sig">VPL</div>
+      <div class="ic-nom">Valor Presente Líquido</div>
+      <div class="ic-desc">Traz os fluxos de caixa futuros a valor de hoje, subtraindo o investimento inicial. Se positivo, o projeto cria riqueza real.</div>
+    </div>
+    <div class="ic hi">
+      <div class="ic-sig">WACC</div>
+      <div class="ic-nom">Custo Médio Ponderado de Capital</div>
+      <div class="ic-desc">Combina o custo do capital próprio e das dívidas da fazenda. É a taxa mínima que qualquer investimento deve superar.</div>
+    </div>
+    <div class="ic mid">
+      <div class="ic-sig">Payback</div>
+      <div class="ic-nom">Prazo de Retorno</div>
+      <div class="ic-desc">Em quantas safras o investimento se paga? Fundamental para avaliar máquinas, silos, pivôs e benfeitorias.</div>
+    </div>
+  </div>
+
+  <div class="cred-hdr">
+    <div class="lbl lbl-light">Módulo especial</div>
+    <h2 style="font-size:18pt;color:var(--palha)">Como o produtor deve levantar capital</h2>
+    <p style="font-size:8pt;color:rgba(234,234,224,0.48);margin-top:1mm">Fontes de crédito, como escolher a certa e como se preparar para obtê-la com as melhores condições.</p>
+  </div>
+
+  <div class="cred-grid">
+    <div class="cc">
+      <h4>Linhas de Crédito Oficial</h4>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">Custeio Agrícola</div><div class="ci-sub">Sementes, defensivos, fertilizantes e mão de obra. Taxas do SNCR, prazos alinhados ao ciclo da cultura.</div></div>
+      </div>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">Pronamp e Moderfrota</div><div class="ci-sub">Programas com subsídio do governo para médios produtores. Juros abaixo do mercado.</div></div>
+      </div>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">FCO Rural e BNDES</div><div class="ci-sub">Investimentos de maior porte: irrigação, armazéns, benfeitorias. Prazos longos e carências adequadas.</div></div>
+      </div>
+    </div>
+    <div class="cc">
+      <h4>Mercado de Capitais e Alternativas</h4>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">CPR — Cédula de Produto Rural</div><div class="ci-sub">Antecipa recursos comprometendo entrega futura. Flexível e ágil, sem burocracia bancária.</div></div>
+      </div>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">CRA — Certificado de Recebíveis</div><div class="ci-sub">Conecta o produtor a investidores institucionais. Taxas competitivas, isento de IR para PF.</div></div>
+      </div>
+      <div class="ci">
+        <div class="cdot"></div>
+        <div><div class="ci-ttl">Barter — Insumos por grãos</div><div class="ci-sub">Trading antecipa insumos em troca de grãos na colheita. Exige análise cuidadosa do preço implícito.</div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════ PÁGINA 5 · DOCENTES + PROCESSO + INVEST ════════════════════ -->
+<div class="page p5">
+
+  <div class="p5-doc-hdr">
+    <div class="lbl lbl-light">Corpo Docente</div>
+    <h2 style="font-size:20pt;color:var(--palha)">Quem vai te ensinar</h2>
+  </div>
+
+  <div class="doc-grid">
+    <div class="dc">
+      <div class="dc-name">
+        Lúcio Salomão
+        <a href="https://www.linkedin.com/in/lucio-salom%C3%A3o-a43a53137/" target="_blank" class="li-btn">
+          <svg width="7" height="7" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+      <div class="dc-cargo">Módulo 1 · Contabilidade do Agro</div>
+      <div class="dc-bio">Fundador da SR Consultoria, formado pelo Insper, baseado em Barreiras (BA). Especialista em contabilidade e gestão financeira voltada ao agronegócio.</div>
+    </div>
+    <div class="dc">
+      <div class="dc-name">Marina Piccini</div>
+      <div class="dc-cargo">Módulos 2 e 3 · Matemática Financeira & Indicadores</div>
+      <div class="dc-bio">Especialista em matemática financeira e indicadores de desempenho, com experiência em educação executiva para gestores do agronegócio.</div>
+    </div>
+    <div class="dc">
+      <div class="dc-name">Ivo Brum</div>
+      <div class="dc-cargo">Módulo 4 · Avaliação de Investimentos</div>
+      <div class="dc-bio">Especialista em análise e avaliação de investimentos rurais. Histórico em consultoria para expansão de áreas, compra de terras e projetos de infraestrutura agrícola.</div>
+    </div>
+    <div class="dc">
+      <div class="dc-name">Octaciano Neto</div>
+      <div class="dc-cargo">Módulo 5 · Crédito & Captação de Recursos</div>
+      <div class="dc-bio">Especialista em crédito rural e estruturação de operações financeiras. Ampla experiência em CPR, CRA e mercado de capitais voltados ao setor agrícola.</div>
+    </div>
+  </div>
+
+  <div class="proc-strip">
+    <h3>Como entrar no curso</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="sn">1</div>
+        <h4>Formulário</h4>
+        <p>Inscrição online com seus dados</p>
+      </div>
+      <div class="step">
+        <div class="sn">2</div>
+        <h4>Análise de perfil</h4>
+        <p>Avaliamos se o programa é adequado</p>
+      </div>
+      <div class="step">
+        <div class="sn">3</div>
+        <h4>Entrevista</h4>
+        <p>Bate-papo de 20 min</p>
+      </div>
+      <div class="step">
+        <div class="sn">4</div>
+        <h4>Matrícula</h4>
+        <p>Confirmação e pagamento</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="inv-strip">
+    <div class="inv-inner">
+      <div class="inv-l">
+        <div class="lbl lbl-light" style="margin-bottom:3mm">Investimento</div>
+        <h3>Tudo incluído</h3>
+        <div class="inv-price">R$ 4.997</div>
+        <div class="inv-psub">à vista no boleto ou 10x sem juros no cartão<br>≈ R$ 499,70 / mês</div>
+      </div>
+      <div class="inv-checks">
+        <div class="inv-chk">24h de aulas presenciais</div>
+        <div class="inv-chk">6h de mentoria ao vivo</div>
+        <div class="inv-chk">Material didático completo</div>
+        <div class="inv-chk">Acesso à plataforma</div>
+        <div class="inv-chk">Certificado digital</div>
+        <div class="inv-chk">Grupo exclusivo de alunos</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-brand">Finanças <span>no Campo</span></div>
+    <div class="foot-info">
+      Programa de Educação Executiva · Agronegócio<br>
+      candidato@instituicao.edu.br · (11) 3164-6702
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
